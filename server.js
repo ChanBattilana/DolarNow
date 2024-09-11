@@ -2,8 +2,7 @@ const express = require('express');
 const axios = require('axios');
 const app = express();
 
-// Usa el puerto asignado por Vercel o 3000 para desarrollo local
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3000;  // Asegúrate de utilizar el puerto asignado por Vercel
 
 // Habilitar CORS para permitir que el frontend haga solicitudes
 app.use((req, res, next) => {
@@ -24,7 +23,7 @@ app.get('/cotizaciones', async (req, res) => {
 });
 
 app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
+    console.log(`Servidor escuchando en el puerto ${port}`);
 });
 
 // Servir archivos estáticos (HTML, CSS, JS)
