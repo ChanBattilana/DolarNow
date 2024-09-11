@@ -153,19 +153,19 @@
 
       async function obtenerCotizaciones() {
     try {
-        const apiUrl = 'https://dolarapi.com/v1/dolares';  // URL de la API
-        const proxyUrl = 'https://api.allorigins.win/get?url=' + encodeURIComponent(apiUrl);
-        const response = await fetch(proxyUrl);
-        const data = await response.json();
-        const cotizaciones = JSON.parse(data.contents);
+        const response = await fetch('/api/cotizaciones'); // Llama a la función API
+        if (!response.ok) {
+            throw new Error('Red no disponible');
+        }
 
+        const data = await response.json();
         const cotizacionesDiv = document.getElementById('cotizaciones');
         const tipoDolarSelect = document.getElementById('tipoDolar');
         
         cotizacionesDiv.innerHTML = '';
         tipoDolarSelect.innerHTML = ''; 
 
-        cotizaciones.forEach(dolar => {
+        data.forEach(dolar => {
             const cotizacionElemento = document.createElement('div');
             cotizacionElemento.classList.add('cotizacion');
             cotizacionElemento.innerHTML = `
@@ -188,6 +188,7 @@
         document.getElementById('cotizaciones').innerText = 'Error al cargar los datos.';
     }
 }
+
 
 
         // Calculadora de conversión
