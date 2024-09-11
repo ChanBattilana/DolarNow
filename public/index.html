@@ -131,6 +131,27 @@
             margin-top: 20px;
         }
 
+        .ads-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            width: 100%;
+            max-width: 1200px;
+            margin-top: 20px;
+        }
+
+        .ad {
+            background-color: #fff;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .ad iframe {
+            width: 160px;
+            height: 300px;
+            border: none;
+        }
     </style>
 </head>
 <body>
@@ -140,6 +161,19 @@
     <div class="container" id="cotizaciones"></div>
 
     <div class="calculadora-container">
+        <div class="ad">
+            <script type="text/javascript">
+                atOptions = {
+                    'key' : '6150d59ac64d3d4e06ac961a70cc110d',
+                    'format' : 'iframe',
+                    'height' : 300,
+                    'width' : 160,
+                    'params' : {}
+                };
+            </script>
+            <script type="text/javascript" src="//www.topcreativeformat.com/6150d59ac64d3d4e06ac961a70cc110d/invoke.js"></script>
+        </div>
+
         <div class="calculadora">
             <h2>Calculadora de conversión</h2>
             <label for="tipoDolar">Selecciona el tipo de Dólar:</label>
@@ -156,18 +190,22 @@
             <div class="resultado" id="resultado"></div>
         </div>
 
+        <div class="ad">
+            <script type="text/javascript">
+                atOptions = {
+                    'key' : '6150d59ac64d3d4e06ac961a70cc110d',
+                    'format' : 'iframe',
+                    'height' : 300,
+                    'width' : 160,
+                    'params' : {}
+                };
+            </script>
+            <script type="text/javascript" src="//www.topcreativeformat.com/6150d59ac64d3d4e06ac961a70cc110d/invoke.js"></script>
+        </div>
+    </div>
 
     <p class="disclaimer">Actualización automática cada 1 minuto</p>
-    <script type="text/javascript">
-                    atOptions = {
-                        'key' : '6150d59ac64d3d4e06ac961a70cc110d',
-                        'format' : 'iframe',
-                        'height' : 300,
-                        'width' : 160,
-                        'params' : {}
-                    };
-                </script>
-                <script type="text/javascript" src="//www.topcreativeformat.com/6150d59ac64d3d4e06ac961a70cc110d/invoke.js"></script>
+
     <script>
         let cotizaciones = {};  // Objeto para almacenar todas las cotizaciones
 
@@ -235,25 +273,9 @@
                 resultadoDiv.innerHTML = resultado;
             }
         }
-    
-        // Actualizar el reloj
-        function actualizarReloj() {
-            const ahora = new Date();
-            const horas = String(ahora.getHours()).padStart(2, '0');
-            const minutos = String(ahora.getMinutes()).padStart(2, '0');
-            const segundos = String(ahora.getSeconds()).padStart(2, '0');
-            document.getElementById('reloj').textContent = `${horas}:${minutos}:${segundos}`;
-        }
 
-        // Llamamos a la función cuando la página carga
-        window.onload = function() {
-            obtenerCotizaciones();
-            actualizarReloj();
-            setInterval(actualizarReloj, 1000); // Actualizar el reloj cada 1 segundo
-        }
-
-        // Actualizar las cotizaciones cada 1 minuto (60000 milisegundos)
-        setInterval(obtenerCotizaciones, 60000);
+        // Obtener cotizaciones al cargar la página
+        window.onload = obtenerCotizaciones;
     </script>
 </body>
 </html>
