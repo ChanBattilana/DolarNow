@@ -1,7 +1,10 @@
 const express = require('express');
 const axios = require('axios');
+const path = require('path');
 const app = express();
-const port = 3000;
+
+// Utilizar el puerto que Vercel nos asigna o el 3000 en local
+const port = process.env.PORT || 3000;
 
 // Habilitar CORS para permitir que el frontend haga solicitudes
 app.use((req, res, next) => {
@@ -10,6 +13,10 @@ app.use((req, res, next) => {
     next();
 });
 
+// Servir archivos estáticos (HTML, CSS, JS)
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Endpoint para obtener las cotizaciones
 app.get('/cotizaciones', async (req, res) => {
     try {
         const response = await axios.get('https://dolarapi.com/v1/dolares');
@@ -21,6 +28,12 @@ app.get('/cotizaciones', async (req, res) => {
     }
 });
 
+// Redirigir todas las demás rutas a `index.html`
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
+// Iniciar el servidor
 app.listen(port, () => {
-    console.log(`Servidor escuchando en http://localhost:${port}`);
+    console.log(`Servidor corriendo en el puerto ${port}`);
 });
