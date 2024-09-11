@@ -1,6 +1,8 @@
 const express = require('express');
 const axios = require('axios');
 const app = express();
+const url = "https://tusitio.vercel.app/cotizaciones";  // Ruta completa
+
 
 const port = process.env.PORT || 3000;  // Asegúrate de utilizar el puerto asignado por Vercel
 
@@ -50,3 +52,9 @@ app.get('*', (req, res) => {
 app.listen(port, () => {
     console.log(`Servidor corriendo en el puerto ${port}`);
 });
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    next();
+});
+res.header('Access-Control-Allow-Methods', 'GET, POST');
