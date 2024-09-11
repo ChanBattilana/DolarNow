@@ -283,18 +283,17 @@
                 resultadoDiv.innerHTML = resultado;
             }
         }
-<script type="text/javascript">
-	atOptions = {
-		'key' : 'cd1839469e0600d3066a20a78a2d6cf3',
-		'format' : 'iframe',
-		'height' : 60,
-		'width' : 468,
-		'params' : {}
-	};
-</script>
-<script type="text/javascript" src="//www.topcreativeformat.com/cd1839469e0600d3066a20a78a2d6cf3/invoke.js"></script>
-        // Obtener cotizaciones al cargar la página
-        window.onload = obtenerCotizaciones;
+
+ // Obtener cotizaciones al cargar la página
+               // Llamamos a la función cuando la página carga
+        window.onload = function() {
+            obtenerCotizaciones();
+            actualizarReloj();
+            setInterval(actualizarReloj, 1000); // Actualizar el reloj cada 1 segundo
+        }
+
+        // Actualizar las cotizaciones cada 1 minuto (60000 milisegundos)
+        setInterval(obtenerCotizaciones, 60000);
     </script>
 </body>
 </html>
