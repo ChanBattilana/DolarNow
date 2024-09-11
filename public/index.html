@@ -153,8 +153,7 @@
 
         async function obtenerCotizaciones() {
             try {
-                const response = await fetch('https://dolar-now-arg.vercel.app', { mode: 'no-cors' })
-;
+                const response = await fetch('https://dolarapi.com/v1/dolares'', { mode: 'no-cors' });
                 const data = await response.json();
 
                 // Elemento donde se mostrarán las cotizaciones
