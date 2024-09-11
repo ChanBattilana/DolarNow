@@ -151,12 +151,13 @@
     <script>
         let cotizaciones = {};  // Objeto para almacenar todas las cotizaciones
 
-       async function obtenerCotizaciones() {
+      async function obtenerCotizaciones() {
     try {
-        const apiUrl = 'https://dolarapi.com/v1/dolares';  // Cambia esta URL a la correcta
-        const proxyUrl = 'https://cors-anywhere.herokuapp.com/';  // URL del proxy
-        const response = await fetch(`${proxyUrl}${apiUrl}`);
+        const apiUrl = 'https://dolarapi.com/v1/dolares';  // URL de la API
+        const proxyUrl = 'https://api.allorigins.win/get?url=' + encodeURIComponent(apiUrl);
+        const response = await fetch(proxyUrl);
         const data = await response.json();
+        const cotizaciones = JSON.parse(data.contents);
 
         const cotizacionesDiv = document.getElementById('cotizaciones');
         const tipoDolarSelect = document.getElementById('tipoDolar');
@@ -164,7 +165,7 @@
         cotizacionesDiv.innerHTML = '';
         tipoDolarSelect.innerHTML = ''; 
 
-        data.forEach(dolar => {
+        cotizaciones.forEach(dolar => {
             const cotizacionElemento = document.createElement('div');
             cotizacionElemento.classList.add('cotizacion');
             cotizacionElemento.innerHTML = `
