@@ -152,44 +152,41 @@
         let cotizaciones = {};  // Objeto para almacenar todas las cotizaciones
 
         async function obtenerCotizaciones() {
-            try {
-                const response = await fetch('http://localhost:3000/cotizaciones');
-                const data = await response.json();
+    try {
+        const apiUrl = 'https://dolar-now-arg-git-main-dolarnows-projects.vercel.app/';  // Cambia esta URL a la correcta
+        const response = await fetch(`${apiUrl}/cotizaciones`);
+        const data = await response.json();
 
-                // Elemento donde se mostrarán las cotizaciones
-                const cotizacionesDiv = document.getElementById('cotizaciones');
-                const tipoDolarSelect = document.getElementById('tipoDolar');
-                
-                // Limpiamos el contenido existente
-                cotizacionesDiv.innerHTML = '';
-                tipoDolarSelect.innerHTML = '';  // Limpiamos el dropdown
+        const cotizacionesDiv = document.getElementById('cotizaciones');
+        const tipoDolarSelect = document.getElementById('tipoDolar');
+        
+        cotizacionesDiv.innerHTML = '';
+        tipoDolarSelect.innerHTML = ''; 
 
-                // Recorremos todas las cotizaciones y las agregamos al DOM
-                data.forEach(dolar => {
-                    const cotizacionElemento = document.createElement('div');
-                    cotizacionElemento.classList.add('cotizacion');
-                    cotizacionElemento.innerHTML = `
-                        <h2>${dolar.nombre}</h2>
-                        <p>Compra: $${dolar.compra}</p>
-                        <p>Venta: $${dolar.venta}</p>
-                    `;
-                    cotizacionesDiv.appendChild(cotizacionElemento);
+        data.forEach(dolar => {
+            const cotizacionElemento = document.createElement('div');
+            cotizacionElemento.classList.add('cotizacion');
+            cotizacionElemento.innerHTML = `
+                <h2>${dolar.nombre}</h2>
+                <p>Compra: $${dolar.compra}</p>
+                <p>Venta: $${dolar.venta}</p>
+            `;
+            cotizacionesDiv.appendChild(cotizacionElemento);
 
-                    // Guardamos la cotización en el objeto cotizaciones
-                    cotizaciones[dolar.nombre] = parseFloat(dolar.venta);
+            cotizaciones[dolar.nombre] = parseFloat(dolar.venta);
 
-                    // Agregamos la opción al dropdown
-                    const option = document.createElement('option');
-                    option.value = dolar.nombre;
-                    option.textContent = dolar.nombre;
-                    tipoDolarSelect.appendChild(option);
-                });
+            const option = document.createElement('option');
+            option.value = dolar.nombre;
+            option.textContent = dolar.nombre;
+            tipoDolarSelect.appendChild(option);
+        });
 
-            } catch (error) {
-                console.error('Error al obtener las cotizaciones:', error);
-                document.getElementById('cotizaciones').innerText = 'Error al cargar los datos.';
-            }
-        }
+    } catch (error) {
+        console.error('Error al obtener las cotizaciones:', error);
+        document.getElementById('cotizaciones').innerText = 'Error al cargar los datos.';
+    }
+}
+
 
         // Calculadora de conversión
         function calcular() {
