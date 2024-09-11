@@ -152,41 +152,40 @@
         let cotizaciones = {};  // Objeto para almacenar todas las cotizaciones
 
         async function obtenerCotizaciones() {
-    try {
-        const apiUrl = 'https://dolarapi.com/v1/dolares';  // Cambia esta URL a la correcta
-        const response = await fetch(`${apiUrl}/cotizaciones`);
-        const data = await response.json();
+            try {
+                const apiUrl = 'https://dolarapi.com/v1/dolares';  // Cambia esta URL a la correcta
+                const response = await fetch(apiUrl);
+                const data = await response.json();
 
-        const cotizacionesDiv = document.getElementById('cotizaciones');
-        const tipoDolarSelect = document.getElementById('tipoDolar');
-        
-        cotizacionesDiv.innerHTML = '';
-        tipoDolarSelect.innerHTML = ''; 
+                const cotizacionesDiv = document.getElementById('cotizaciones');
+                const tipoDolarSelect = document.getElementById('tipoDolar');
+                
+                cotizacionesDiv.innerHTML = '';
+                tipoDolarSelect.innerHTML = ''; 
 
-        data.forEach(dolar => {
-            const cotizacionElemento = document.createElement('div');
-            cotizacionElemento.classList.add('cotizacion');
-            cotizacionElemento.innerHTML = `
-                <h2>${dolar.nombre}</h2>
-                <p>Compra: $${dolar.compra}</p>
-                <p>Venta: $${dolar.venta}</p>
-            `;
-            cotizacionesDiv.appendChild(cotizacionElemento);
+                data.forEach(dolar => {
+                    const cotizacionElemento = document.createElement('div');
+                    cotizacionElemento.classList.add('cotizacion');
+                    cotizacionElemento.innerHTML = `
+                        <h2>${dolar.nombre}</h2>
+                        <p>Compra: $${dolar.compra}</p>
+                        <p>Venta: $${dolar.venta}</p>
+                    `;
+                    cotizacionesDiv.appendChild(cotizacionElemento);
 
-            cotizaciones[dolar.nombre] = parseFloat(dolar.venta);
+                    cotizaciones[dolar.nombre] = parseFloat(dolar.venta);
 
-            const option = document.createElement('option');
-            option.value = dolar.nombre;
-            option.textContent = dolar.nombre;
-            tipoDolarSelect.appendChild(option);
-        });
+                    const option = document.createElement('option');
+                    option.value = dolar.nombre;
+                    option.textContent = dolar.nombre;
+                    tipoDolarSelect.appendChild(option);
+                });
 
-    } catch (error) {
-        console.error('Error al obtener las cotizaciones:', error);
-        document.getElementById('cotizaciones').innerText = 'Error al cargar los datos.';
-    }
-}
-
+            } catch (error) {
+                console.error('Error al obtener las cotizaciones:', error);
+                document.getElementById('cotizaciones').innerText = 'Error al cargar los datos.';
+            }
+        }
 
         // Calculadora de conversión
         function calcular() {
