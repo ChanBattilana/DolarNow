@@ -68,12 +68,20 @@
             color: #666;
         }
 
+        .calculadora-container {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            width: 100%;
+            max-width: 1200px;
+            margin-top: 30px;
+        }
+
         .calculadora {
             background-color: #fff;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            margin-top: 30px;
             width: 100%;
             max-width: 500px;
             text-align: left;
@@ -123,63 +131,70 @@
             margin-top: 20px;
         }
 
-        .anuncio {
-            position: fixed;
-            top: 0;
-            right: 0;
+        .ads-container {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 1200px;
+            margin-top: 20px;
+        }
+
+        .ad {
+            background-color: #fff;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .ad iframe {
             width: 160px;
             height: 300px;
-            margin: 10px;
         }
     </style>
 </head>
 <body>
-    <script type="text/javascript">
-        atOptions = {
-            'key' : '6150d59ac64d3d4e06ac961a70cc110d',
-            'format' : 'iframe',
-            'height' : 300,
-            'width' : 160,
-            'params' : {}
-        };
-    </script>
-    <script type="text/javascript" src="//www.topcreativeformat.com/6150d59ac64d3d4e06ac961a70cc110d/invoke.js"></script>
-
     <h1>Cotización del Dólar</h1>
     <div class="reloj" id="reloj"></div>
 
     <div class="container" id="cotizaciones"></div>
 
-    <div class="calculadora">
-        <h2>Calculadora de conversión</h2>
-        <label for="tipoDolar">Selecciona el tipo de Dólar:</label>
-        <select id="tipoDolar"></select>
+    <div class="calculadora-container">
+        <div class="calculadora">
+            <h2>Calculadora de conversión</h2>
+            <label for="tipoDolar">Selecciona el tipo de Dólar:</label>
+            <select id="tipoDolar"></select>
 
-        <label for="pesos">Cantidad en Pesos (ARS):</label>
-        <input type="number" id="pesos" placeholder="Ej: 1000">
+            <label for="pesos">Cantidad en Pesos (ARS):</label>
+            <input type="number" id="pesos" placeholder="Ej: 1000">
 
-        <label for="dolares">Cantidad en Dólares (USD):</label>
-        <input type="number" id="dolares" placeholder="Ej: 10">
+            <label for="dolares">Cantidad en Dólares (USD):</label>
+            <input type="number" id="dolares" placeholder="Ej: 10">
 
-        <button onclick="calcular()">Calcular</button>
+            <button onclick="calcular()">Calcular</button>
 
-        <div class="resultado" id="resultado"></div>
+            <div class="resultado" id="resultado"></div>
+        </div>
+
+        <div class="ads-container">
+            <div class="ad">
+                <script type="text/javascript">
+                    atOptions = {
+                        'key' : '6150d59ac64d3d4e06ac961a70cc110d',
+                        'format' : 'iframe',
+                        'height' : 300,
+                        'width' : 160,
+                        'params' : {}
+                    };
+                </script>
+                <script type="text/javascript" src="//www.topcreativeformat.com/6150d59ac64d3d4e06ac961a70cc110d/invoke.js"></script>
+            </div>
+            <div class="ad">
+                <!-- Aquí puedes agregar otro anuncio similar si lo deseas -->
+            </div>
+        </div>
     </div>
 
     <p class="disclaimer">Actualización automática cada 1 minuto</p>
-
-    <div class="anuncio">
-        <script type="text/javascript">
-            atOptions = {
-                'key' : '6150d59ac64d3d4e06ac961a70cc110d',
-                'format' : 'iframe',
-                'height' : 300,
-                'width' : 160,
-                'params' : {}
-            };
-        </script>
-        <script type="text/javascript" src="//www.topcreativeformat.com/6150d59ac64d3d4e06ac961a70cc110d/invoke.js"></script>
-    </div>
 
     <script>
         let cotizaciones = {};  // Objeto para almacenar todas las cotizaciones
