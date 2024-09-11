@@ -131,25 +131,6 @@
             margin-top: 20px;
         }
 
-        .ads-container {
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
-            max-width: 1200px;
-            margin-top: 20px;
-        }
-
-        .ad {
-            background-color: #fff;
-            padding: 10px;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .ad iframe {
-            width: 160px;
-            height: 300px;
-        }
     </style>
 </head>
 <body>
@@ -175,9 +156,9 @@
             <div class="resultado" id="resultado"></div>
         </div>
 
-        <div class="ads-container">
-            <div class="ad">
-                <script type="text/javascript">
+
+    <p class="disclaimer">Actualización automática cada 1 minuto</p>
+    <script type="text/javascript">
                     atOptions = {
                         'key' : '6150d59ac64d3d4e06ac961a70cc110d',
                         'format' : 'iframe',
@@ -187,15 +168,6 @@
                     };
                 </script>
                 <script type="text/javascript" src="//www.topcreativeformat.com/6150d59ac64d3d4e06ac961a70cc110d/invoke.js"></script>
-            </div>
-            <div class="ad">
-                <!-- Aquí puedes agregar otro anuncio similar si lo deseas -->
-            </div>
-        </div>
-    </div>
-
-    <p class="disclaimer">Actualización automática cada 1 minuto</p>
-
     <script>
         let cotizaciones = {};  // Objeto para almacenar todas las cotizaciones
 
@@ -263,7 +235,7 @@
                 resultadoDiv.innerHTML = resultado;
             }
         }
-
+    
         // Actualizar el reloj
         function actualizarReloj() {
             const ahora = new Date();
