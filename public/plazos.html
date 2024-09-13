@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plazos Fijos</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Tasas de Plazos Fijos</h1>
+    </header>
+    <br><a href="index.html" class="btn-volver">Volver al Inicio</a><br>
+        <a href="billeteras.html" class="btn-volver">Billeteras Virtuales</a>
+    <main>
+        <section id="plazos-container">
+            <!-- Aquí se cargarán los plazos fijos mediante JavaScript -->
+        </section>
+
+        <section id="calculadora-plazos">
+            <h2>Calculadora de Interés</h2>
+            <label for="plazoSelect">Selecciona un plazo fijo:</label>
+            <select id="plazoSelect"></select>
+
+            <label for="montoPlazo">Monto (ARS):</label>
+            <input type="number" id="montoPlazo" placeholder="Ej: 10000">
+
+            <label for="periodoPlazo">Periodo:</label>
+            <select id="periodoPlazo">
+                <option value="dias">Días</option>
+                <option value="meses">Meses</option>
+                <option value="años">Años</option>
+            </select>
+
+            <label for="cantidadPeriodoPlazo">Cantidad:</label>
+            <input type="number" id="cantidadPeriodoPlazo" placeholder="Ej: 12">
+
+            <button onclick="calcularInteresPlazos()">Calcular</button>
+
+            <div class="resultado" id="resultado-plazos"></div>
+        </section>
+    </main>
+    <footer>
+        <p>Actualización automática cada 1 minuto.</p>
+    </footer>
+    <script>
+        async function obtenerPlazos() {
+            try {
+                const response = await fetch('https://dolarify-api.vercel.app/api/plazos');
+                const plazos = await response.json();
+                const container = document.getElementById('plazos-container');
+                const plazoSelect = document.getElementById('plazoSelect');
+                
+                plazos.forEach(plazo => {
+                    const plazoDiv = document.createElement('div');
+                    plazoDiv.classList.add('plazo-card');
+                    plazoDiv.innerHTML = `
+                        <h2>${plazo.alias}</h2>
+                        <p>TNA: ${plazo.TNA}%</p>
+                        <p>TEA: ${plazo.TEA}%</p>
+                    `;
+                    container.appendChild(plazoDiv);
+
+                    const option = document.createElement('option');
+                    option.value = plazo.alias;
+                    option.textContent = plazo.alias;
+                    plazoSelect.appendChild(option);
+                });
+            } catch (error) {
+                console.error('Error obteniendo los plazos fijos:', error);
+            }
+        }
+
+        function calcularInteresPlazos() {
+            const monto = parseFloat(document.getElementById('montoPlazo').value);
+            const plazoSeleccionado = document.getElementById('plazoSelect').value;
+            const periodo = document.getElementById('periodoPlazo').value;
+            const cantidadPeriodo = parseFloat(document.getElementById('cantidadPeriodoPlazo').value);
+            const resultadoDiv = document.getElementById('resultado-plazos');
+
+            const plazos = document.querySelectorAll('.plazo-card');
+            let tasaAnual = 0;
+
+            plazos.forEach(plazo => {
+                const nombre = plazo.querySelector('h2').textContent;
+                const tna = parseFloat(plazo.querySelector('p').textContent.split(': ')[1]);
+
+                if (nombre === plazoSeleccionado) {
+                    tasaAnual = tna;
+                }
+            });
+
+            if (!isNaN(monto) && monto > 0 && !isNaN(cantidadPeriodo) && cantidadPeriodo > 0 && tasaAnual > 0) {
+                const tasaDiaria = (tasaAnual / 365) / 100;
+                const tasaMensual = (tasaAnual / 12) / 100;
+                let montoFinal = 0;
+
+                if (periodo === 'dias') {
+                    montoFinal = monto * Math.pow(1 + tasaDiaria, cantidadPeriodo);
+                } else if (periodo === 'meses') {
+                    montoFinal = monto * Math.pow(1 + tasaMensual, cantidadPeriodo);
+                } else if (periodo === 'años') {
+                    montoFinal = monto * Math.pow(1 + tasaAnual / 100, cantidadPeriodo);
+                }
+
+                resultadoDiv.innerHTML = `Monto final después de ${cantidadPeriodo} ${periodo}: $${montoFinal.toFixed(2)}`;
+            } else {
+                resultadoDiv.innerHTML = 'Por favor, ingresa una cantidad válida y selecciona un plazo fijo.';
+            }
+        }
+        obtenerPlazos();
+        setInterval(obtenerPlazos, 60000);
+    </script>
+</body>
+</html>
