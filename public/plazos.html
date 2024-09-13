@@ -18,6 +18,18 @@
         </section>
 
         <section id="calculadora-plazos">
+            <div class="ad">
+                <script type="text/javascript">
+                    atOptions = {
+                        'key' : '6150d59ac64d3d4e06ac961a70cc110d',
+                        'format' : 'iframe',
+                        'height' : 300,
+                        'width' : 160,
+                        'params' : {}
+                    };
+                </script>
+                <script type="text/javascript" src="//www.topcreativeformat.com/6150d59ac64d3d4e06ac961a70cc110d/invoke.js"></script>
+            </div>
             <h2>Calculadora de Interés</h2>
             <label for="plazoSelect">Selecciona un plazo fijo:</label>
             <select id="plazoSelect"></select>
@@ -50,7 +62,11 @@
                 const plazos = await response.json();
                 const container = document.getElementById('plazos-container');
                 const plazoSelect = document.getElementById('plazoSelect');
-                
+    
+                // Limpiar el contenido existente
+                container.innerHTML = '';
+                plazoSelect.innerHTML = '';
+    
                 plazos.forEach(plazo => {
                     const plazoDiv = document.createElement('div');
                     plazoDiv.classList.add('plazo-card');
@@ -60,7 +76,7 @@
                         <p>TEA: ${plazo.TEA}%</p>
                     `;
                     container.appendChild(plazoDiv);
-
+    
                     const option = document.createElement('option');
                     option.value = plazo.alias;
                     option.textContent = plazo.alias;
@@ -70,7 +86,9 @@
                 console.error('Error obteniendo los plazos fijos:', error);
             }
         }
-
+    
+        obtenerPlazos();
+        setInterval(obtenerPlazos, 60000);
         function calcularInteresPlazos() {
             const monto = parseFloat(document.getElementById('montoPlazo').value);
             const plazoSeleccionado = document.getElementById('plazoSelect').value;
@@ -108,8 +126,7 @@
                 resultadoDiv.innerHTML = 'Por favor, ingresa una cantidad válida y selecciona un plazo fijo.';
             }
         }
-        obtenerPlazos();
-        setInterval(obtenerPlazos, 60000);
+        
     </script>
 </body>
 </html>
