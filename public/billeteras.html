@@ -50,7 +50,11 @@
                 const billeteras = await response.json();
                 const container = document.getElementById('billeteras-container');
                 const billeteraSelect = document.getElementById('billeteraSelect');
-                
+    
+                // Limpiar el contenido existente
+                container.innerHTML = '';
+                billeteraSelect.innerHTML = '';
+    
                 billeteras.forEach(billetera => {
                     const billeteraDiv = document.createElement('div');
                     billeteraDiv.classList.add('billetera-card');
@@ -60,7 +64,7 @@
                         <p>TEA: ${billetera.TEA}%</p>
                     `;
                     container.appendChild(billeteraDiv);
-
+    
                     const option = document.createElement('option');
                     option.value = billetera.billetera;
                     option.textContent = billetera.billetera;
@@ -70,7 +74,9 @@
                 console.error('Error obteniendo las billeteras:', error);
             }
         }
-
+    
+        obtenerBilleteras();
+        setInterval(obtenerBilleteras, 60000);
         function calcularInteres() {
             const monto = parseFloat(document.getElementById('monto').value);
             const billeteraSeleccionada = document.getElementById('billeteraSelect').value;
@@ -108,9 +114,6 @@
                 resultadoDiv.innerHTML = 'Por favor, ingresa una cantidad válida y selecciona una billetera.';
             }
         }
-
-        obtenerBilleteras();
-        setInterval(obtenerBilleteras, 60000);
     </script>
 </body>
 </html>
